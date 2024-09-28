@@ -1,10 +1,18 @@
 import java.util.Arrays;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
     public int[] solution(int number) {
-         return IntStream.rangeClosed(0 , number)
-                .filter(num -> num % 2 != 0)
+        List<Integer> numbers = new ArrayList<>();
+
+        for (int i = 1; i <= number; i++) {
+            numbers.add(i);
+        }
+
+        return numbers.stream()
+                .filter(it -> it % 2 != 0)
+                .mapToInt(Integer::intValue)
                 .toArray();
     }
 }
