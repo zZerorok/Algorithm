@@ -10,7 +10,8 @@ class Solution {
 
         if (Arrays.equals(beforeCharArray, afterCharArray)) {
             return 1;
+        } else {
+            return 0;
         }
-        return 0;
     }
 }
