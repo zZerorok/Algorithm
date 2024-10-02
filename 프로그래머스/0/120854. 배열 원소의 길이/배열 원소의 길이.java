@@ -4,8 +4,7 @@ class Solution {
     public int[] solution(String[] strlist) {
         
         return Arrays.stream(strlist)
-                .map(str -> str.length())
-                .mapToInt(Integer::intValue)
-                .toArray();
+            .mapToInt(String::length)
+            .toArray();
     }
 }
