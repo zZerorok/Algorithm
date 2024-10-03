@@ -13,11 +13,12 @@ class Solution {
             participants.put(completedPlayer, participants.get(completedPlayer) - 1);
         }
         
-        for (Map.Entry<String, Integer> entry : participants.entrySet()) {
-            if (entry.getValue() == 1) {
-                return entry.getKey();
+        for (String player : participants.keySet()) {
+            if (participants.get(player) == 1) {
+                return player;
             }
         }
+        
         return null;
     }
 }
