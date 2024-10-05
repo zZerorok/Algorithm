@@ -1,11 +1,11 @@
 class Solution {
     public String solution(String[] arr) {
-        StringBuilder answer = new StringBuilder();
+        String answer = "";
         
         for (String string : arr) {
-            answer.append(string);
+            answer += string;
         }
         
-        return answer.toString();
+        return answer;
     }
 }
