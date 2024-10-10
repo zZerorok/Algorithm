@@ -3,10 +3,6 @@ class Solution {
         int sum = Integer.parseInt("" + a + b);
         int multiply = 2 * a * b;
 
-        if (sum < multiply) {
-            return multiply;
-        } else {
-            return sum;
-        }
+        return Math.max(sum, multiply);
     }
 }
