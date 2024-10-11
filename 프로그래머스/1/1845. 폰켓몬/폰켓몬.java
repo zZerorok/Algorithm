@@ -1,13 +1,14 @@
-import java.util.Map;
-import java.util.HashMap;
+import java.util.Set;
+import java.util.HashSet;
 
 class Solution {
     public int solution(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
+        Set<Integer> set = new HashSet<>();
         for (int pokemonNum : nums) {
-            map.put(pokemonNum, map.getOrDefault(pokemonNum, 0) + 1);
+            set.add(pokemonNum);
         }
-        int pokemonCount = map.size();
+    
+        int pokemonCount = set.size();
         
         int maxPokemonCount = nums.length / 2;
         
