@@ -16,14 +16,9 @@ class Solution {
 
         int answer = 0;
         for (Integer quantity : quantities) {
-            if (k <= quantity) {
-                answer++;
-                break;
-            }
-
             k -= quantity;
             answer++;
-
+            
             if (k <= 0) {
                 break;
             }
