@@ -2,23 +2,16 @@ import java.util.*;
 
 class Solution {
     public int solution(String s) {
-        String[] split = s.split("");
-        Stack<String> stack = new Stack<>();
-        int index = 0;
+        Stack<Character> stack = new Stack<>();
 
-        while (index < split.length) {
-            if (stack.isEmpty()) {
-                stack.push(split[index]);
+        for (char currentChar : s.toCharArray()) {
+            if (stack.isEmpty() || currentChar != stack.peek()) {
+                stack.push(currentChar);
             } else {
-                
-                if (stack.peek().equals(split[index])) {
-                    stack.pop();
-                } else {
-                    stack.push(split[index]);
-                }
+                stack.pop();
             }
-            index++;
         }
+
         return stack.isEmpty() ? 1 : 0;
     }
 }
