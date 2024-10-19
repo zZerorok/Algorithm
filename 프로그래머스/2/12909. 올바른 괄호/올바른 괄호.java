@@ -10,7 +10,6 @@ class Solution {
 
         Stack<Character> stack = new Stack<>();
         for (char current : s.toCharArray()) {
-            // 스택이 비어있으면 값 저장
             if (stack.isEmpty() || current == '(') {
                 stack.push(current);
             } else {
