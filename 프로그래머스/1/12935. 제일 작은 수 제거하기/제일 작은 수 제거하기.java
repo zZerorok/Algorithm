@@ -7,13 +7,7 @@ class Solution {
         }
         
         int min = Arrays.stream(arr).min().getAsInt();
-        int[] answer = new int[arr.length - 1];
-        int index = 0;
-        for (int number : arr) {
-            if (number != min) {
-                answer[index++] = number;
-            }
-        }
-        return answer;
+        
+        return Arrays.stream(arr).filter(num -> num != min).toArray();
     }
 }
