@@ -2,7 +2,7 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] arr, int[] delete_list) {
-        Set<Integer> deletes = new HashSet<>();
+        List<Integer> deletes = new ArrayList<>();
         for (int deleteNum : delete_list) {
             deletes.add(deleteNum);
         }
