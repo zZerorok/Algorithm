@@ -3,9 +3,6 @@ class Solution {
         myString = myString.toLowerCase();
         pat = pat.toLowerCase();
 
-        if (myString.contains(pat)) {
-            return 1;
-        }
-        return 0;
+        return myString.contains(pat) ? 1 : 0;
     }
 }
