@@ -4,12 +4,7 @@ import java.util.List;
 
 class Solution {
     public String[] solution(String myStr) {
-        String replaceAll = myStr.replaceAll("[abc]", ",");
-        
-        String[] split = replaceAll.split(",");
-        if (split.length == 0) {
-            return new String[]{"EMPTY"};
-        }
+        String[] split = myStr.split("[abc]");
         
         List<String> answer = new ArrayList<>();
         for (String string : split) {
@@ -17,7 +12,11 @@ class Solution {
                 answer.add(string);
             }
         }
-        
+
+        if (answer.isEmpty()) {
+            return new String[]{"EMPTY"};
+        }
+
         return answer.stream().toArray(String[]::new);
     }
 }
