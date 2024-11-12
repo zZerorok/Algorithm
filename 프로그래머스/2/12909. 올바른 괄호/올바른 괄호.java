@@ -18,7 +18,7 @@ class Solution {
         }
         
         if (!stack.isEmpty()) {
-            answer = false;
+            return false;
         }
 
         return answer;
