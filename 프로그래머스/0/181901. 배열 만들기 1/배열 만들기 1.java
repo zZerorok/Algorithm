@@ -1,20 +1,12 @@
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.stream.IntStream;
+
 
 class Solution {
     public int[] solution(int n, int k) {
-        List<Integer> multiples = new ArrayList<>();
-
-        for (int i = 1; i <= n; i++) {
-            if (n < k * i) {
-                break;
-            }
-            multiples.add(k * i);
-        }
-        
-        return multiples.stream()
-            .mapToInt(Integer::intValue)
-            .toArray();
+       return IntStream.rangeClosed(1, n)
+                .filter(num -> (num * k) <= n)
+                .map(num -> num * k)
+                .toArray();
     }
 }
