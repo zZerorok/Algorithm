@@ -1,9 +1,9 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 class Solution {
     public String solution(String my_string, int[] indices) {
-        List<Integer> indexes = new ArrayList<>();
+        Set<Integer> indexes = new HashSet<>();
         for (int index : indices) {
             indexes.add(index);
         }
