@@ -2,7 +2,7 @@ import java.util.*;
 
 class Solution {
     public int solution(String begin, String target, String[] words) {
-        if (!Set.of(words).contains(target)) {
+        if (!List.of(words).contains(target)) {
             return 0;
         }
 
