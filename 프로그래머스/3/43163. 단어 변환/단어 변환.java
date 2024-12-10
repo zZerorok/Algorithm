@@ -31,11 +31,8 @@ class Solution {
     }
 
     private void processWords(Map<String, Boolean> map, Queue<String> queue, String currentWord) {
-        for (Map.Entry<String, Boolean> entry : map.entrySet()) {
-            String word = entry.getKey();
-            Boolean isVisited = entry.getValue();
-
-            if (!isVisited && isConvertible(currentWord, word)) {
+        for (String word : map.keySet()) {
+            if (!map.get(word) && isConvertible(currentWord, word)) {
                 map.put(word, true);
                 queue.add(word);
             }
