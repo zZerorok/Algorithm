@@ -1,29 +1,27 @@
 class Solution {
     public int[] solution(int[] sequence, int k) {
-        int start = 0;
-        int currentSum = 0;
-        int resultStart = 0;
-        int resultEnd = 0;
+        int[] answer = new int[2];
+        int left = 0;
+        int right = 0;
+        int sum = 0;
         int minLength = Integer.MAX_VALUE;
 
-        for (int end = 0; end < sequence.length; end++) {
-            currentSum += sequence[end];
+        while (right < sequence.length) {
+            sum += sequence[right];
 
-            while (currentSum >= k) {
-                if (currentSum == k) {
-                    int length = end - start;
-
-                    if (length < minLength) {
-                        minLength = length;
-                        resultStart = start;
-                        resultEnd = end;
-                    }
+            while (sum >= k) {
+                if (sum == k && (right - left) < minLength) {
+                    minLength = right - left;
+                    answer[0] = left;
+                    answer[1] = right;
                 }
 
-                currentSum -= sequence[start];
-                start++;
+                sum -= sequence[left];
+                left++;
             }
+            right++;
         }
-        return new int[]{resultStart, resultEnd};
+
+        return answer;
     }
 }
