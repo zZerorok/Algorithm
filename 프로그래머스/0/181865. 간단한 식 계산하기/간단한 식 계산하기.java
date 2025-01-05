@@ -4,17 +4,11 @@ class Solution {
         int firstNum = Integer.parseInt(split[0]);
         int secondNum = Integer.parseInt(split[2]);
 
-        switch (split[1]) {
-            case "+" -> {
-                return firstNum + secondNum;
-            }
-            case "-" -> {
-                return firstNum - secondNum;
-            }
-            case "*" -> {
-                return firstNum * secondNum;
-            }
-        }
-        return 0;
+        return switch (split[1]) {
+            case "+" -> firstNum + secondNum;
+            case "-" -> firstNum - secondNum;
+            case "*" -> firstNum * secondNum;
+            default -> throw new IllegalArgumentException();
+        };
     }
 }
