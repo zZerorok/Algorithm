@@ -7,19 +7,16 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(reader.readLine());
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
-        reader.close();
-        
-        int[] drinks = new int[n];
+
+        double maxDrink = 0;
+        double totalDrink = 0;
         for (int i = 0; i < n; i++) {
-            drinks[i] = Integer.parseInt(tokenizer.nextToken());
+            double currentDrink = Double.parseDouble(tokenizer.nextToken());
+            totalDrink += currentDrink;
+            maxDrink = Math.max(maxDrink, currentDrink);
         }
 
-        Arrays.sort(drinks);
-        double result = drinks[n - 1];
-        for (int i = 0; i < n - 1; i++) {
-            result += drinks[i] / 2.0;
-        }
-
+        double result = maxDrink + ((totalDrink - maxDrink) / 2);
         System.out.println(result);
     }
 }
