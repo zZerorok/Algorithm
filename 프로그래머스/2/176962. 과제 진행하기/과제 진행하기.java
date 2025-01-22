@@ -4,43 +4,48 @@ import java.util.stream.Collectors;
 class Solution {
     
      public String[] solution(String[][] plans) {
-        List<Task> taskList = Arrays.stream(plans).map(plan -> 
-                        new Task(plan[0], convertToMinute(plan[1]), Integer.parseInt(plan[2]))
-                )
-                .sorted(Comparator.comparingInt(Task::start))
-                .collect(Collectors.toUnmodifiableList());
-
+        List<Task> taskList = convertTasks(plans);
         Deque<Task> tasks = new ArrayDeque<>(taskList);
-        Stack<Task> pausedTasks = new Stack<>();
+        Deque<Task> pausedTasks = new ArrayDeque<>();
         List<String> endedTasks = new ArrayList<>();
 
-        Task currentTask = tasks.poll();
-        int currentTime = currentTask.start();
+        Task currentTask = tasks.pollFirst();
+        int time = currentTask.start();
 
         while (!tasks.isEmpty()) {
-            currentTime += currentTask.playtime();
-            Task nextTask = tasks.peek();
+            Task nextTask = tasks.peekFirst();
+            time += currentTask.playtime();
 
-            if (currentTime > nextTask.start()) {
-                Task updatedTask = currentTask.updatePlaytime(currentTime - nextTask.start());
+            if (time > nextTask.start()) {
+                Task updatedTask = currentTask.updatePlaytime(time - nextTask.start());
                 pausedTasks.push(updatedTask);
             } else {
                 endedTasks.add(currentTask.name());
-                if (!pausedTasks.empty()) {
+
+                if (!pausedTasks.isEmpty()) {
                     currentTask = pausedTasks.pop();
                     continue;
                 }
             }
-            currentTask = tasks.poll();
-            currentTime = currentTask.start();
+
+            currentTask = tasks.pollFirst();
+            time = currentTask.start();
         }
 
         endedTasks.add(currentTask.name());
-        while (!pausedTasks.empty()) {
+
+        while (!pausedTasks.isEmpty()) {
             endedTasks.add(pausedTasks.pop().name());
         }
 
         return endedTasks.toArray(new String[0]);
+    }
+
+    private List<Task> convertTasks(String[][] plans) {
+        return Arrays.stream(plans)
+                .map(plan -> new Task(plan[0], convertToMinute(plan[1]), Integer.parseInt(plan[2])))
+                .sorted(Comparator.comparingInt(Task::start))
+                .collect(Collectors.toList());
     }
 
     private int convertToMinute(String time) {
