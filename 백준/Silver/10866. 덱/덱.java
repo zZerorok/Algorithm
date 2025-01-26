@@ -2,18 +2,15 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-
+    
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int testCase = Integer.parseInt(reader.readLine());
-
-        List<String> commands = new ArrayList<>();
-        for (int i = 0; i < testCase; i++) {
-            commands.add(reader.readLine());
-        }
+        int commandsCount = Integer.parseInt(reader.readLine());
 
         Deque<Integer> deque = new ArrayDeque<>();
-        for (String command : commands) {
+        for (int i = 0; i < commandsCount; i++) {
+            String command = reader.readLine();
+
             switch (command) {
                 case "pop_front":
                     popFront(deque);
@@ -35,14 +32,13 @@ public class Main {
                     break;
 
                 default:
-                    pushCommand(deque, command);
+                    processPushCommand(deque, command);
                     break;
             }
-
         }
     }
 
-    private static void pushCommand(Deque<Integer> deque, String command) {
+    private static void processPushCommand(Deque<Integer> deque, String command) {
         String[] split = command.split(" ");
 
         if (split[0].equals("push_front")) {
