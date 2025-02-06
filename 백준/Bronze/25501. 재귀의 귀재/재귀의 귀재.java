@@ -3,33 +3,37 @@ import java.util.*;
 
 public class Main {
 
-    private static final List<int[]> RESULT = new ArrayList<>();
-
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(reader.readLine());
 
+        List<StringBuilder> result = new ArrayList<>();
         for (int i = 0; i < T; i++) {
-            isPalindrome(reader.readLine());
+            int palindromeResult = isPalindrome(reader.readLine());
+            result.add(new StringBuilder(palindromeResult + " " + recursionCount));
         }
 
-        for (int[] result : RESULT) {
-            System.out.println(result[0] + " " + result[1]);
+        for (StringBuilder builder : result) {
+            System.out.println(builder);
         }
     }
 
-    public static void isPalindrome(String value) {
-        int count = 1;
-        recursion(value, 0, value.length() - 1, count);
+    public static int recursionCount;
+
+    public static int isPalindrome(String value) {
+        recursionCount = 0;
+        return recursion(value, 0, value.length() - 1);
     }
 
-    public static void recursion(String value, int start, int end, int count) {
+    public static int recursion(String value, int start, int end) {
+        recursionCount += 1;
+
         if (start >= end) {
-            RESULT.add(new int[]{1, count});
+            return 1;
         } else if (value.charAt(start) != value.charAt(end)) {
-            RESULT.add(new int[]{0, count});
+            return 0;
         } else {
-            recursion(value, start + 1, end - 1, count + 1);
+            return recursion(value, start + 1, end - 1);
         }
     }
 }
