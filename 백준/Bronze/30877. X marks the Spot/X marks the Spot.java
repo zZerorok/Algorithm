@@ -12,8 +12,8 @@ public class Main {
             String first = split[0];
             String second = split[1];
 
-            int targetIndex = first.toLowerCase().indexOf("x");
-            result.append(second.toUpperCase().charAt(targetIndex));
+            int targetIndex = first.toLowerCase().indexOf('x');
+            result.append(Character.toUpperCase(second.charAt(targetIndex)));
         }
         
         System.out.println(result);
