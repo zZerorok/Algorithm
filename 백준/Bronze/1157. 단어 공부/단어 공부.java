@@ -5,12 +5,10 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String word = reader.readLine();
-        char[] chars = word.toUpperCase().toCharArray();
-
+        char[] upperChars = reader.readLine().toUpperCase().toCharArray();
 
         Map<Character, Integer> map = new HashMap<>();
-        for (char current : chars) {
+        for (char current : upperChars) {
             map.put(current, map.getOrDefault(current, 0) + 1);
         }
 
