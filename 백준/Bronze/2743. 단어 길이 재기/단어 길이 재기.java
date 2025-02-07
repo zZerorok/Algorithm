@@ -1,10 +1,9 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String word = scanner.nextLine();
-        System.out.println(word.length());
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println(reader.readLine().length());
     }
 }
