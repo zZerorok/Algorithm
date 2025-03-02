@@ -4,6 +4,8 @@ public class Main {
 
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final Deque<Integer> CARDS = new ArrayDeque<>();
+    private static final List<Integer> DISCARD_PILE = new ArrayList<>();
+    private static final StringBuilder RESULT = new StringBuilder();
 
     public static void main(String[] args) {
         int maxCardNumber = SCANNER.nextInt();
@@ -11,17 +13,16 @@ public class Main {
             CARDS.offerLast(i);
         }
 
-        List<Integer> discardPile = new ArrayList<>();
         while (CARDS.size() > 1) {
-            discardPile.add(CARDS.pollFirst());
+            DISCARD_PILE.add(CARDS.pollFirst());
             CARDS.offerLast(CARDS.pollFirst());
         }
 
-        StringBuilder result = new StringBuilder();
-        for (Integer discard : discardPile) {
-            result.append(discard).append(" ");
+        for (Integer discard : DISCARD_PILE) {
+            RESULT.append(discard).append(" ");
         }
-        result.append(CARDS.peekFirst());
-        System.out.println(result);
+        RESULT.append(CARDS.peekFirst());
+
+        System.out.println(RESULT);
     }
 }
