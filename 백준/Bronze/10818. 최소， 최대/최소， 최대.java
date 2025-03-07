@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
 
@@ -9,11 +8,20 @@ public class Main {
         int count = Integer.parseInt(READER.readLine());
         String[] values = READER.readLine().split(" ");
 
-        List<Integer> numbers = new ArrayList<>();
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
         for (int i = 0; i < count; i++) {
-            numbers.add(Integer.parseInt(values[i]));
+            int num = Integer.parseInt(values[i]);
+            if (num < min) {
+                min = num;
+            }
+            
+            if (num > max) {
+                max = num;
+            }
         }
         
-        System.out.println(Collections.min(numbers) + " " + Collections.max(numbers));
+        System.out.println(min + " " + max);
     }
 }
