@@ -3,11 +3,13 @@ import java.util.*;
 
 public class Main {
 
+    private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedWriter WRITER = new BufferedWriter(new OutputStreamWriter(System.out));
+
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
         int result = 1;
         for (int i = 0; i < 3; i++) {
-            result *= scanner.nextInt();
+            result *= Integer.parseInt(READER.readLine());
         }
 
         Map<Integer, Integer> numberCount = new HashMap<>();
@@ -22,7 +24,12 @@ public class Main {
         }
 
         for (Integer key : numberCount.keySet()) {
-            System.out.println(numberCount.get(key));
+            WRITER.write(String.valueOf(numberCount.get(key)));
+            WRITER.newLine();
         }
+
+        WRITER.flush();
+        WRITER.close();
+        READER.close();
     }
 }
