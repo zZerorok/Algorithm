@@ -34,8 +34,10 @@ public class Main {
     }
 
     private static void writeValues() throws IOException {
+        StringBuilder builder = new StringBuilder();
         for (Integer value : VALUES) {
-            WRITER.write(value + " ");
+            builder.append(value).append(" ");
         }
+        WRITER.write(builder.toString().trim());
     }
 }
