@@ -17,18 +17,11 @@ public class Main {
             SITE_PASSWORDS.put(sitePasswordPair[0], sitePasswordPair[1]);
         }
 
-        List<String> sites = new ArrayList<>();
         for (int i = 0; i < searchPasswordCount; i++) {
             String site = READER.readLine();
-            sites.add(site);
-        }
-
-        for (String site : sites) {
-            if (SITE_PASSWORDS.containsKey(site)) {
-                String password = SITE_PASSWORDS.get(site);
-                WRITER.write(password);
-                WRITER.newLine();
-            }
+            String password = SITE_PASSWORDS.get(site);
+            WRITER.write(password);
+            WRITER.newLine();
         }
 
         WRITER.flush();
