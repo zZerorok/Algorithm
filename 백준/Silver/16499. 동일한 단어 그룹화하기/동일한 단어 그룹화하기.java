@@ -7,13 +7,12 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        Map<String, Integer> words = new HashMap<>();
+        Set<String> words = new HashSet<>();
         int wordCount = Integer.parseInt(reader.readLine());
         for (int i = 0; i < wordCount; i++) {
             String[] split = reader.readLine().split("");
             Arrays.sort(split);
-            String sortedWord = Arrays.toString(split);
-            words.put(sortedWord, words.getOrDefault(sortedWord, 0) + 1);
+            words.add(Arrays.toString(split));
         }
 
         writer.write(String.valueOf(words.size()));
