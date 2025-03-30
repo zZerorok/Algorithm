@@ -3,26 +3,41 @@ import java.util.*;
 
 public class Main {
 
-    static Map<Long, Integer> frequencyMap = new HashMap<>();
+    private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedWriter WRITER = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int cardCount = Integer.parseInt(reader.readLine());
-        for (int i = 0; i < cardCount; i++) {
-            long number = Long.parseLong(reader.readLine());
-            frequencyMap.put(number, frequencyMap.getOrDefault(number, 0) + 1);
-        }
+        int cardCount = Integer.parseInt(READER.readLine());
+        Map<Long, Integer> frequencyMap = initCardMap(cardCount);
+        int maxFrequency = getMaxFrequency(frequencyMap);
+        long result = findMinKeyWithMaxFrequency(frequencyMap, maxFrequency);
+        printResult(result);
+    }
 
-        int maxFrequency = frequencyMap.values().stream().max(Integer::compareTo).get();
-        List<Long> result = new ArrayList<>();
-        for (Map.Entry<Long, Integer> entry : frequencyMap.entrySet()) {
+    private static Map<Long, Integer> initCardMap(int cardCount) throws IOException {
+        Map<Long, Integer> map = new TreeMap<>();
+        for (int i = 0; i < cardCount; i++) {
+            long number = Long.parseLong(READER.readLine());
+            map.merge(number, 1, Integer::sum);
+        }
+        return map;
+    }
+
+    private static int getMaxFrequency(Map<Long, Integer> map) {
+        return Collections.max(map.values());
+    }
+
+    private static long findMinKeyWithMaxFrequency(Map<Long, Integer> map, int maxFrequency) {
+        for (Map.Entry<Long, Integer> entry : map.entrySet()) {
             if (entry.getValue() == maxFrequency) {
-                result.add(entry.getKey());
+                return entry.getKey();
             }
         }
-        
-        Collections.sort(result);
+        return -1;
+    }
 
-        System.out.println(result.get(0));
+    private static void printResult(long result) throws IOException {
+        WRITER.write(String.valueOf(result));
+        WRITER.flush();
     }
 }
