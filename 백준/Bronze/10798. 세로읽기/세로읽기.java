@@ -1,30 +1,28 @@
 import java.io.*;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String[] input = new String[5];
-        for (int i = 0; i < 5; i++) {
-            input[i] = reader.readLine();
-        }
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+        List<String> inputs = new ArrayList<>();
 
-        StringBuilder result = new StringBuilder();
         int maxLength = 0;
-        for (String line : input) {
-            if (line.length() > maxLength) {
-                maxLength = line.length();
-            }
+        for (int i = 0; i < 5; i++) {
+            String line = reader.readLine();
+            inputs.add(line);
+            maxLength = Math.max(maxLength, line.length());
         }
 
         for (int i = 0; i < maxLength; i++) {
-            for (int j = 0; j < 5; j++) {
-                if (i < input[j].length()) {
-                    result.append(input[j].charAt(i));
+            for (String input : inputs) {
+                if (i < input.length()) {
+                    writer.append(input.charAt(i));
                 }
             }
         }
 
-        System.out.println(result);
+        writer.flush();
     }
 }
