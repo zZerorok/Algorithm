@@ -3,28 +3,39 @@ import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
-        
-        int N = Integer.parseInt(reader.readLine());
-        for (int i = 0; i < N; i++) {
-            int x = Integer.parseInt(reader.readLine());
+    private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedWriter WRITER = new BufferedWriter(new OutputStreamWriter(System.out));
 
-            if (x == 0) {
-                if (maxHeap.isEmpty()) {
-                    writer.write(String.valueOf(0));
-                    writer.newLine();
-                } else {
-                    writer.write(String.valueOf(maxHeap.poll()));
-                    writer.newLine();
-                }
+    public static void main(String[] args) throws IOException {
+        PriorityQueue<Integer> descendingQueue = new PriorityQueue<>(Collections.reverseOrder());
+
+        int calculateCount = Integer.parseInt(READER.readLine());
+        for (int i = 0; i < calculateCount; i++) {
+            int value = Integer.parseInt(READER.readLine());
+            if (value == 0) {
+                int maxNumber = getMaxNumber(descendingQueue);
+                write(maxNumber);
             } else {
-                maxHeap.add(x);
+                descendingQueue.add(value);
             }
         }
-        
-        writer.flush();
+
+        printResult();
+    }
+
+    private static int getMaxNumber(PriorityQueue<Integer> queue) {
+        if (queue.isEmpty()) {
+            return 0;
+        }
+        return queue.poll();
+    }
+
+    private static void write(int value) throws IOException {
+        WRITER.write(String.valueOf(value));
+        WRITER.newLine();
+    }
+
+    private static void printResult() throws IOException {
+        WRITER.flush();
     }
 }
