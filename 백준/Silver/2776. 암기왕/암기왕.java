@@ -21,9 +21,9 @@ public class Main {
             for (int j = 0; j < note2Size; j++) {
                 int note2Number = Integer.parseInt(tokenizer.nextToken());
                 if (note1.contains(note2Number)) {
-                    writer.write(String.valueOf(1));
+                    writer.write("1");
                 } else {
-                    writer.write(String.valueOf(0));
+                    writer.write("0");
                 }
                 writer.newLine();
             }
