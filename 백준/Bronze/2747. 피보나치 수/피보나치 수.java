@@ -1,25 +1,21 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        if (n == 0) {
-            System.out.println(0);
-            return;
-        }
-
-        int result = 0;
+        int n = Integer.parseInt(reader.readLine());
         int num1 = 0;
         int num2 = 1;
         for (int i = 0; i < n; i++) {
-            result = num1 + num2;
+            int temp = num1 + num2;
             num1 = num2;
-            num2 = result;
+            num2 = temp;
         }
-
-        System.out.println(num1);
+        
+        writer.write(String.valueOf(num1));
+        writer.flush();
     }
 }
