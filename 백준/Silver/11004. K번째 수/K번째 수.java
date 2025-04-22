@@ -11,15 +11,15 @@ public class Main {
         int n = Integer.parseInt(inputs[0]);
         int k = Integer.parseInt(inputs[1]);
 
-        List<Integer> numbers = new ArrayList<>();
+        int[] numbers = new int[n];
         String[] inputNumbers = reader.readLine().split(" ");
         for (int i = 0; i < n; i++) {
-            numbers.add(Integer.parseInt(inputNumbers[i]));
+            numbers[i] = Integer.parseInt(inputNumbers[i]);
         }
 
-        Collections.sort(numbers);
+        Arrays.sort(numbers);
 
-        Integer targetNumber = numbers.get(k - 1);
+        int targetNumber = numbers[k - 1];
         writer.write(String.valueOf(targetNumber));
         writer.flush();
     }
