@@ -7,20 +7,19 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        String[] inputs = reader.readLine().split(" ");
-        int n = Integer.parseInt(inputs[0]);
-        int k = Integer.parseInt(inputs[1]);
+        StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
+        int n = Integer.parseInt(tokenizer.nextToken());
+        int k = Integer.parseInt(tokenizer.nextToken());
 
+        tokenizer = new StringTokenizer(reader.readLine());
         int[] numbers = new int[n];
-        String[] inputNumbers = reader.readLine().split(" ");
         for (int i = 0; i < n; i++) {
-            numbers[i] = Integer.parseInt(inputNumbers[i]);
+            numbers[i] = Integer.parseInt(tokenizer.nextToken());
         }
 
         Arrays.sort(numbers);
 
-        int targetNumber = numbers[k - 1];
-        writer.write(String.valueOf(targetNumber));
+        writer.write(String.valueOf(numbers[k - 1]));
         writer.flush();
     }
 }
