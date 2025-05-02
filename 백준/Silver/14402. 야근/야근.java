@@ -17,7 +17,7 @@ public class Main {
 
             if (entryStatus.equals("+")) {
                 employees.put(employeeName, employees.getOrDefault(employeeName, 0) + 1);
-            } else if (entryStatus.equals("-")) {
+            } else {
                 Integer count = employees.get(employeeName);
                 if (count == null || count == 0) {
                     overtimeCount += 1;
