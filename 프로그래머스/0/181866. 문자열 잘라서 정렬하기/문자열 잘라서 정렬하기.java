@@ -1,17 +1,10 @@
-import java.util.*;
+import java.util.Arrays;
 
 class Solution {
     public String[] solution(String myString) {
-         String[] split = myString.split("x");
-        List<String> list = new ArrayList<>();
-
-        for (String current : split) {
-            if (!current.isEmpty()) {
-                list.add(current);
-            }
-        }
-        
-        Collections.sort(list);
-        return list.toArray(new String[0]);
+         return Arrays.stream(myString.split("x"))
+                .filter(it -> !it.isEmpty())
+                .sorted()
+                .toArray(String[]::new);
     }
 }
