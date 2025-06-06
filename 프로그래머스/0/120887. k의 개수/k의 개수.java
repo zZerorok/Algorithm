@@ -1,14 +1,10 @@
-import java.util.Arrays;
+import java.util.stream.IntStream;
 
 class Solution {
     public int solution(int i, int j, int k) {
-        int count = 0;
-        for (int num = i; num <= j; num++) {
-            String[] split = String.valueOf(num).split("");
-            count += (int) Arrays.stream(split)
-                    .filter(it -> it.equals(String.valueOf(k)))
-                    .count();
-        }
-        return count;
+         return (int) IntStream.rangeClosed(i, j)
+                .flatMap(num -> String.valueOf(num).chars())
+                .filter(ch -> ch == (k + '0'))
+                .count();
     }
 }
