@@ -3,76 +3,57 @@ import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
-        OperationResult result = new OperationResult();
+    private static final BufferedReader READER = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedWriter WRITER = new BufferedWriter(new OutputStreamWriter(System.out));
+    private static final Set<Integer> RESULT = new HashSet<>();
 
-        int operationCount = Integer.parseInt(reader.readLine());
+    public static void main(String[] args) throws IOException {
+        int operationCount = Integer.parseInt(READER.readLine());
         for (int i = 0; i < operationCount; i++) {
-            String[] commands = reader.readLine().split(" ");
-            executeCommand(result, commands, writer);
+            String[] commands = READER.readLine().split(" ");
+            execute(commands);
         }
 
-        writer.flush();
+        WRITER.flush();
     }
 
-    public static void executeCommand(OperationResult result, String[] commands, BufferedWriter writer) throws IOException {
+    public static void execute(String[] commands) throws IOException {
         String command = commands[0];
         if (command.equals("all")) {
-            result.fillAll();
+            fillAll();
             return;
         }
 
         if (command.equals("empty")) {
-            result.clearAll();
+            RESULT.clear();
             return;
         }
 
         int value = Integer.parseInt(commands[1]);
         switch (command) {
-            case "add" -> result.add(value);
-            case "remove" -> result.remove(value);
-            case "toggle" -> result.toggle(value);
-            case "check" -> {
-                writer.write(result.check(value) ? "1" : "0");
-                writer.newLine();
-            }
+            case "add" -> RESULT.add(value);
+            case "remove" -> RESULT.remove(value);
+            case "toggle" -> toggle(value);
+            case "check" -> check(value);
         }
     }
 
-    private static class OperationResult {
-
-        private final Set<Integer> elements = new HashSet<>();
-
-        public void add(int value) {
-            elements.add(value);
+    private static void fillAll() {
+        for (int i = 1; i <= 20; i++) {
+            RESULT.add(i);
         }
+    }
 
-        public void remove(int value) {
-            elements.remove(value);
+    private static void toggle(int value) {
+        if (RESULT.contains(value)) {
+            RESULT.remove(value);
+        } else {
+            RESULT.add(value);
         }
+    }
 
-        public boolean check(int value) {
-            return elements.contains(value);
-        }
-
-        public void toggle(int value) {
-            if (elements.contains(value)) {
-                elements.remove(value);
-            } else {
-                elements.add(value);
-            }
-        }
-
-        public void fillAll() {
-            for (int i = 1; i <= 20; i++) {
-                elements.add(i);
-            }
-        }
-
-        public void clearAll() {
-            elements.clear();
-        }
+    private static void check(int value) throws IOException {
+        WRITER.write(RESULT.contains(value) ? "1" : "0");
+        WRITER.newLine();
     }
 }
