@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class Solution {
     public int solution(String my_string) {
         String replaced = alphabetToSpace(my_string);
@@ -17,11 +19,9 @@ class Solution {
         return input.trim().split(" +");
     }
 
-    private static int getSum(String[] inputs) {
-        int sum = 0;
-        for (String input : inputs) {
-            sum += Integer.parseInt(input);
-        }
-        return sum;
+    private int getSum(String[] inputs) {
+        return Arrays.stream(inputs)
+                .mapToInt(Integer::parseInt)
+                .sum();
     }
 }
