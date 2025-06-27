@@ -1,25 +1,11 @@
 class Solution {
     public int solution(String ineq, String eq, int n, int m) {
-        return compare(ineq, eq, n, m) ? 1 : 0;
-    }
-
-    private boolean compare(String ineq, String eq, int n, int m) {
-        if (ineq.equals("<") && eq.equals("=")) {
-            return n <= m;
-        }
-
-        if (ineq.equals("<") && eq.equals("!")) {
-            return n < m;
-        }
-
-        if (ineq.equals(">") && eq.equals("=")) {
-            return n >= m;
-        }
-
-        if (ineq.equals(">") && eq.equals("!")) {
-            return n > m;
-        }
-        
-        return false;
+        return switch (ineq + eq) {
+            case "<=" -> n <= m ? 1 : 0;
+            case "<!" -> n < m ? 1 : 0;
+            case ">=" -> n >= m ? 1 : 0;
+            case ">!" -> n > m ? 1 : 0;
+            default -> 0;
+        };
     }
 }
