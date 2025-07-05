@@ -2,25 +2,26 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-
+    
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        char[] upperChars = reader.readLine().toUpperCase().toCharArray();
+        String input = reader.readLine().toUpperCase();
 
-        Map<Character, Integer> map = new HashMap<>();
-        for (char current : upperChars) {
-            map.put(current, map.getOrDefault(current, 0) + 1);
+        Map<Character, Integer> freq = new HashMap<>();
+        for (char ch : input.toCharArray()) {
+            freq.put(ch, freq.getOrDefault(ch, 0) + 1);
         }
 
-        int maxCount = Collections.max(map.values());
+        int max = Collections.max(freq.values());
+        List<Character> maxChars = new ArrayList<>();
 
-        List<Character> alphabets = new ArrayList<>();
-        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
-            if (entry.getValue() == maxCount) {
-                alphabets.add(entry.getKey());
+        for (Map.Entry<Character, Integer> entry : freq.entrySet()) {
+            if (entry.getValue() == max) {
+                maxChars.add(entry.getKey());
+                if (maxChars.size() > 1) break;
             }
         }
 
-        System.out.println(alphabets.size() > 1 ? "?" : alphabets.get(0));
+        System.out.println(maxChars.size() > 1 ? "?" : maxChars.get(0));
     }
 }
