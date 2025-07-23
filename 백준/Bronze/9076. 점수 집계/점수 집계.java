@@ -3,37 +3,55 @@ import java.util.*;
 
 public class Main {
 
+    private static final BufferedReader INPUT_READER = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedWriter OUTPUT_WRITER = new BufferedWriter(new OutputStreamWriter(System.out));
+
+    private static final String FAIL_MESSAGE = "KIN";
+    private static final int DIFF_THRESHOLD = 4;
+
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+        int testCaseCount = Integer.parseInt(INPUT_READER.readLine());
 
-        int testcase = Integer.parseInt(reader.readLine());
-        for (int i = 0; i < testcase; i++) {
-            List<Integer> scores = new ArrayList<>();
-            String[] inputScores = reader.readLine().split(" ");
-            for (String score : inputScores) {
-                scores.add(Integer.parseInt(score));
-            }
-
-            Collections.sort(scores);
-
-            scores.remove(0);
-            scores.remove(scores.size() - 1);
-
-            int minScore = scores.get(0);
-            int maxScore = scores.get(scores.size() - 1);
-            int sum = 0;
-            if (maxScore - minScore < 4) {
-                for (int score : scores) {
-                    sum += score;
-                }
-                writer.write(String.valueOf(sum));
-                writer.newLine();
-            } else {
-                writer.write("KIN");
-                writer.newLine();
-            }
+        for (int i = 0; i < testCaseCount; i++) {
+            String[] inputScores = INPUT_READER.readLine().split(" ");
+            String result = process(inputScores);
+            printResult(result);
         }
-        writer.flush();
+
+        OUTPUT_WRITER.flush();
+        OUTPUT_WRITER.close();
+        INPUT_READER.close();
+    }
+
+    private static String process(String[] inputScores) {
+        int[] scores = parseScores(inputScores);
+
+        if (isDifferenceTooHigh(scores)) {
+            return FAIL_MESSAGE;
+        }
+
+        return String.valueOf(calculateSum(scores));
+    }
+
+    private static int[] parseScores(String[] inputScores) {
+        return Arrays.stream(inputScores)
+                .mapToInt(Integer::parseInt)
+                .sorted()
+                .toArray();
+    }
+
+    private static boolean isDifferenceTooHigh(int[] scores) {
+        int min = scores[1];
+        int max = scores[3];
+        return max - min >= DIFF_THRESHOLD;
+    }
+
+    private static int calculateSum(int[] scores) {
+        return scores[1] + scores[2] + scores[3];
+    }
+
+    private static void printResult(String result) throws IOException {
+        OUTPUT_WRITER.write(result);
+        OUTPUT_WRITER.newLine();
     }
 }
