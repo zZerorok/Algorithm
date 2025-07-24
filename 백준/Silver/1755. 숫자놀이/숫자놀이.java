@@ -1,58 +1,75 @@
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
 
-    private static final Map<Integer, String> DIGIT_WORDS = Map.of(
-            0, "zero", 1, "one", 2, "two", 3, "three", 4, "four",
-            5, "five", 6, "six", 7, "seven", 8, "eight", 9, "nine"
-    );
+    private static final int NUMBERS_PER_LINE = 10;
+    private static final Map<Integer, String> DIGIT_WORDS = new HashMap<>();
+
+    static {
+        DIGIT_WORDS.put(0, "zero");
+        DIGIT_WORDS.put(1, "one");
+        DIGIT_WORDS.put(2, "two");
+        DIGIT_WORDS.put(3, "three");
+        DIGIT_WORDS.put(4, "four");
+        DIGIT_WORDS.put(5, "five");
+        DIGIT_WORDS.put(6, "six");
+        DIGIT_WORDS.put(7, "seven");
+        DIGIT_WORDS.put(8, "eight");
+        DIGIT_WORDS.put(9, "nine");
+    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        StringTokenizer st = new StringTokenizer(reader.readLine());
-        int startNumber = Integer.parseInt(st.nextToken());
-        int endNumber = Integer.parseInt(st.nextToken());
+        StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
+        int startNumber = Integer.parseInt(tokenizer.nextToken());
+        int endNumber = Integer.parseInt(tokenizer.nextToken());
 
         List<NumberWord> numberWords = convertToNumberWords(startNumber, endNumber);
+        
         numberWords.sort(Comparator.comparing(n -> n.word));
 
-        printSortedNumbers(numberWords, writer);
+        printNumbers(numberWords, writer);
 
         writer.flush();
     }
 
     private static List<NumberWord> convertToNumberWords(int start, int end) {
-        List<NumberWord> result = new ArrayList<>();
-        for (int i = start; i <= end; i++) {
-            result.add(new NumberWord(i, toEnglish(i)));
-        }
-        return result;
+        return IntStream.rangeClosed(start, end)
+                .mapToObj(num -> new NumberWord(num, toEnglish(num)))
+                .collect(Collectors.toList());
     }
 
     private static String toEnglish(int number) {
         if (number < 10) {
             return DIGIT_WORDS.get(number);
         }
-        int tens = number / 10;
-        int ones = number % 10;
-        return DIGIT_WORDS.get(tens) + " " + DIGIT_WORDS.get(ones);
+
+        StringBuilder builder = new StringBuilder();
+        for (char digit : String.valueOf(number).toCharArray()) {
+            builder.append(DIGIT_WORDS.get(digit - '0'));
+        }
+        return builder.toString();
     }
 
-    private static void printSortedNumbers(List<NumberWord> list, BufferedWriter writer) throws IOException {
+    private static void printNumbers(List<NumberWord> list, BufferedWriter writer) throws IOException {
         for (int i = 0; i < list.size(); i++) {
-            writer.write(list.get(i).number + " ");
-            if ((i + 1) % 10 == 0) {
+            writer.write(String.valueOf(list.get(i).number));
+            if (i % NUMBERS_PER_LINE == NUMBERS_PER_LINE - 1) {
                 writer.newLine();
+            } else {
+                writer.write(" ");
             }
         }
     }
 
-    private static class NumberWord {
-        int number;
-        String word;
+    private static final class NumberWord {
+        final int number;
+        final String word;
 
         NumberWord(int number, String word) {
             this.number = number;
