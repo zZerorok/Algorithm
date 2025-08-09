@@ -11,21 +11,18 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
+        int count = Integer.parseInt(tokenizer.nextToken());
+        String gameType = tokenizer.nextToken();
 
-        String[] inputs = reader.readLine().split(" ");
-        int requestCount = Integer.parseInt(inputs[0]);
-        String gameType = inputs[1];
-
-        Set<String> players = new HashSet<>();
-        for (int i = 0; i < requestCount; i++) {
+        Set<String> players = new HashSet<>((int) (count / 0.75f) + 1);
+        for (int i = 0; i < count; i++) {
             players.add(reader.readLine());
         }
 
         int needPlayer = GAME_PLAYER.get(gameType) - 1;
         int result = players.size() / needPlayer;
 
-        writer.write(String.valueOf(result));
-        writer.flush();
+        System.out.println(result);
     }
 }
